@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#2a9134">
     <title>E4C - Premium Refurbished Electronics</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -25,28 +24,6 @@
             box-sizing: border-box;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes glow {
-            0% { text-shadow: 0 0 10px rgba(42, 145, 52, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(42, 145, 52, 0.8); }
-            100% { text-shadow: 0 0 10px rgba(42, 145, 52, 0.5); }
-        }
-
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--dark-bg);
@@ -66,8 +43,6 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(42, 145, 52, 0.1);
-            animation: slideIn 0.5s ease-out;
         }
 
         .logo a {
@@ -78,15 +53,6 @@
             -webkit-text-fill-color: transparent;
             text-decoration: none;
             transition: all 0.3s ease;
-            letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
-            animation: glow 2s infinite;
-        }
-
-        .logo a:hover {
-            transform: scale(1.05);
-            animation: pulse 1s infinite;
         }
 
         .search-bar {
@@ -94,7 +60,6 @@
             margin: 0 20px;
             display: flex;
             justify-content: center;
-            position: relative;
         }
 
         .search-bar input {
@@ -105,13 +70,6 @@
             font-size: 16px;
             background-color: var(--card-bg);
             color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
-
-        .search-bar input:focus {
-            width: 350px;
-            box-shadow: 0 0 15px rgba(42, 145, 52, 0.3);
-            outline: none;
         }
 
         .search-bar button {
@@ -119,38 +77,10 @@
             color: white;
             border: none;
             border-radius: 25px;
-            padding: 12px 30px;
+            padding: 12px 25px;
             margin-left: 10px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .search-bar button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(42, 145, 52, 0.4);
-        }
-
-        .search-bar button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .search-bar button:hover::before {
-            left: 100%;
         }
 
         .nav-links {
@@ -164,43 +94,13 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 5px 10px;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-green);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-green);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links i {
-            transition: transform 0.3s ease;
-        }
-
-        .nav-links a:hover i {
-            transform: translateY(-2px);
-        }
         .main-content {
             display: flex;
             flex: 1;
             padding: 20px;
             gap: 20px;
-            position: relative;
         }
 
         .sidebar {
@@ -208,22 +108,12 @@
             padding: 30px;
             border-radius: 15px;
             width: 250px;
-            position: sticky;
-            top: 80px;
-            height: calc(100vh - 100px);
-            overflow-y: auto;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            border: 1px solid rgba(42, 145, 52, 0.1);
-            animation: fadeIn 0.5s ease-out;
+            height: fit-content;
         }
 
         .sidebar h2 {
             color: var(--primary-green);
             margin-bottom: 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
 
         .sidebar a {
@@ -237,39 +127,12 @@
             transition: all 0.3s ease;
         }
 
-        .sidebar a:hover {
-            background: var(--gradient-green);
-            color: white;
-            transform: translateX(5px);
-        }
-
         .sidebar i {
             margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .category-toggle {
-            display: none;
-            background: var(--gradient-green);
-            border: none;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            margin: 10px 20px;
-            transition: all 0.3s ease;
-        }
-
-        .category-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(42, 145, 52, 0.4);
         }
 
         .product-section {
             flex: 1;
-            min-width: 0;
         }
 
         .top-bar {
@@ -292,13 +155,6 @@
             background-color: var(--card-bg);
             border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(42, 145, 52, 0.1);
-        }
-
-        .highlight-bar div:hover {
-            background: var(--gradient-green);
-            transform: translateY(-2px);
         }
 
         .filter-bar select {
@@ -307,15 +163,12 @@
             background-color: var(--card-bg);
             color: var(--text-primary);
             border: 1px solid var(--primary-green);
-            cursor: pointer;
-            transition: all 0.3s ease;
         }
 
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
-            margin-top: 20px;
         }
 
         .product-card {
@@ -324,20 +177,11 @@
             padding: 20px;
             text-align: center;
             position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(42, 145, 52, 0.1);
-            transition: all 0.3s ease;
-            animation: fadeIn 0.5s ease-out forwards;
-            opacity: 0;
-        }
-
-        .product-card:nth-child(even) {
-            animation-delay: 0.2s;
+            transition: transform 0.3s ease;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(42, 145, 52, 0.2);
         }
 
         .product-badge {
@@ -350,13 +194,14 @@
             border-radius: 15px;
             font-size: 0.8em;
             font-weight: 600;
-            z-index: 1;
         }
 
         .product-card img {
             width: 100%;
-            height: auto;
+            height: 200px;
+            object-fit: contain;
             border-radius: 10px;
+            margin-bottom: 15px;
             transition: transform 0.3s ease;
         }
 
@@ -364,26 +209,16 @@
             transform: scale(1.05);
         }
 
-        .product-info {
-            margin-top: 15px;
-        }
-
         .product-title {
             font-size: 1.1em;
-            color: var(--text-primary);
-            margin-bottom: 5px;
+            margin: 10px 0;
         }
 
         .product-price {
             color: var(--primary-green);
             font-size: 1.2em;
             font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .product-rating {
-            color: #ffd700;
-            margin-bottom: 15px;
+            margin: 10px 0;
         }
 
         .product-card button {
@@ -395,39 +230,22 @@
             cursor: pointer;
             width: 100%;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .product-card button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(42, 145, 52, 0.4);
+        }
+
+        .footer {
+            background-color: var(--darker-bg);
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
         }
 
         @media (max-width: 768px) {
-            .category-toggle {
-                display: block;
-            }
-
-            .sidebar {
-                position: fixed;
-                top: 0;
-                left: -100%;
-                height: 100vh;
-                z-index: 1000;
-                transition: left 0.3s ease;
-                width: 80%;
-                max-width: 300px;
-            }
-
-            .sidebar.active {
-                left: 0;
-            }
-
-            .product-section {
-                width: 100%;
-                margin-left: 0;
-            }
-
             .navbar {
                 flex-direction: column;
                 padding: 10px;
@@ -442,30 +260,13 @@
                 width: calc(100% - 100px);
             }
 
-            .nav-links {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
                 width: 100%;
-                justify-content: space-around;
-                padding: 10px 0;
             }
-
-            .nav-links span {
-                display: none;
-            }
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
-        }
-
-        .overlay.active {
-            display: block;
         }
     </style>
 </head>
@@ -486,18 +287,9 @@
         </div>
     </div>
 
-    <button class="category-toggle">
-        <i class="fas fa-bars"></i> Categories
-    </button>
-
-    <div class="overlay"></div>
-
     <div class="main-content">
         <div class="sidebar">
-            <h2>
-                Categories
-                <button class="close-btn"><i class="fas fa-times"></i></button>
-            </h2>
+            <h2>Categories</h2>
             <a href="#"><i class="fas fa-mobile-alt"></i>Refurbished iPhones</a>
             <a href="#"><i class="fab fa-android"></i>Refurbished Android</a>
             <a href="#"><i class="fas fa-laptop"></i>Laptops & Tablets</a>
@@ -524,7 +316,6 @@
                         <option value="price-asc">Price: Low to High</option>
                         <option value="price-desc">Price: High to Low</option>
                         <option value="newest">Newest First</option>
-                        <option value="rating">Top Rated</option>
                     </select>
                 </div>
             </div>
@@ -533,191 +324,79 @@
                 <!-- iPhone 13 Pro -->
                 <div class="product-card">
                     <div class="product-badge">Like New</div>
-                    <img src="https://via.placeholder.com/200" alt="iPhone 13 Pro">
-                    <div class="product-info">
-                        <h3 class="product-title">iPhone 13 Pro</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="product-price">$799.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max-2.jpg" alt="iPhone 13 Pro">
+                    <h3 class="product-title">iPhone 13 Pro</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                     </div>
-                </div>
-
-                <!-- Samsung S21 Ultra -->
-                <div class="product-card">
-                    <div class="product-badge">Certified</div>
-                    <img src="https://via.placeholder.com/200" alt="Samsung S21 Ultra">
-                    <div class="product-info">
-                        <h3 class="product-title">Samsung S21 Ultra</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="product-price">$699.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    </div>
+                    <p class="product-price">$799.99</p>
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
                 </div>
 
                 <!-- MacBook Pro -->
                 <div class="product-card">
                     <div class="product-badge">Premium</div>
-                    <img src="https://via.placeholder.com/200" alt="MacBook Pro">
-                    <div class="product-info">
-                        <h3 class="product-title">MacBook Pro M1</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="product-price">$1,299.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    <img src="https://images.macrumors.com/t/h13IQTTLaKKFUswYPz8UE7YYJ6A=/1600x/article-new/2021/10/14-16-inch-macbook-pro-2021.jpg" alt="MacBook Pro">
+                    <h3 class="product-title">MacBook Pro M1</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                </div>
-
-                <!-- iPad Pro -->
-                <div class="product-card">
-                    <div class="product-badge">Best Seller</div>
-                    <img src="https://via.placeholder.com/200" alt="iPad Pro">
-                    <div class="product-info">
-                        <h3 class="product-title">iPad Pro 12.9"</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="product-price">$899.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    </div>
-                </div>
-
-                <!-- Google Pixel 6 -->
-                <div class="product-card">
-                    <div class="product-badge">Hot Deal</div>
-                    <img src="https://via.placeholder.com/200" alt="Google Pixel 6">
-                    <div class="product-info">
-                        <h3 class="product-title">Google Pixel 6</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="product-price">$549.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    </div>
+                    <p class="product-price">$1,299.99</p>
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
                 </div>
 
                 <!-- AirPods Pro -->
                 <div class="product-card">
                     <div class="product-badge">Popular</div>
-                    <img src="https://via.placeholder.com/200" alt="AirPods Pro">
-                    <div class="product-info">
-                        <h3 class="product-title">AirPods Pro</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="product-price">$179.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MQD83?wid=572&hei=572&fmt=jpeg" alt="AirPods Pro">
+                    <h3 class="product-title">AirPods Pro</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
+                    <p class="product-price">$179.99</p>
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
                 </div>
 
-                <!-- PlayStation 5 -->
+                <!-- iPad Pro -->
                 <div class="product-card">
-                    <div class="product-badge">Limited Stock</div>
-                    <img src="https://via.placeholder.com/200" alt="PlayStation 5">
-                    <div class="product-info">
-                        <h3 class="product-title">PlayStation 5</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="product-price">$499.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    <div class="product-badge">Best Seller</div>
+                    <img src="https://images.macrumors.com/t/vMbr05RH_8atiKO_q-VJEzGPBW4=/1600x/article-new/2021/04/iPad-Pro-2021-Feature.jpg" alt="iPad Pro">
+                    <h3 class="product-title">iPad Pro 12.9"</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
+                    <p class="product-price">$899.99</p>
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
                 </div>
 
                 <!-- Apple Watch -->
                 <div class="product-card">
                     <div class="product-badge">Trending</div>
-                    <img src="https://via.placeholder.com/200" alt="Apple Watch">
-                    <div class="product-info">
-                        <h3 class="product-title">Apple Watch Series 7</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="product-price">$349.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    <img src="https://images.macrumors.com/t/V4f_3wR-6CZghZqhQUX-UzKRJZI=/1600x/article-new/2021/09/Apple-Watch-Series-7-Main.jpg" alt="Apple Watch">
+                    <h3 class="product-title">Apple Watch Series 7</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                     </div>
-                </div>
-
-                <!-- Dell XPS 13 -->
-                <div class="product-card">
-                    <div class="product-badge">Premium</div>
-                    <img src="https://via.placeholder.com/200" alt="Dell XPS 13">
-                    <div class="product-info">
-                        <h3 class="product-title">Dell XPS 13</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="product-price">$999.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    </div>
+                    <p class="product-price">$349.99</p>
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
                 </div>
 
                 <!-- Nintendo Switch -->
                 <div class="product-card">
                     <div class="product-badge">Best Value</div>
-                    <img src="https://via.placeholder.com/200" alt="Nintendo Switch">
-                    <div class="product-info">
-                        <h3 class="product-title">Nintendo Switch OLED</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="product-price">$349.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    <img src="https://assets.nintendo.com/image/upload/c_pad,f_auto,h_463,q_auto,w_824/ncom/en_US/switch/site-design-update/hardware/switch/nintendo-switch-oled-model-white-set/gallery/image01?v=2021071701" alt="Nintendo Switch">
+                    <h3 class="product-title">Nintendo Switch OLED</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                </div>
-
-                <!-- Samsung Galaxy Watch -->
-                <div class="product-card">
-                    <div class="product-badge">New</div>
-                    <img src="https://via.placeholder.com/200" alt="Samsung Galaxy Watch">
-                    <div class="product-info">
-                        <h3 class="product-title">Galaxy Watch 4</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="product-price">$249.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    </div>
-                </div>
-
-                <!-- Surface Pro -->
-                <div class="product-card">
-                    <div class="product-badge">Featured</div>
-                    <img src="https://via.placeholder.com/200" alt="Surface Pro">
-                    <div class="product-info">
-                        <h3 class="product-title">Surface Pro 8</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                        <p class="product-price">$899.99</p>
-                        <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="showcase-section">
-                <img src="https://via.placeholder.com/300" alt="Special Deal">
-                <div class="showcase-details">
-                    <h3>iPhone 14 Pro Max</h3>
-                    <p>Certified Refurbished with 1-Year Warranty</p>
-                    <p class="price">Special Price: $999.99</p>
-                    <button><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                    <p class="product-price">$349.99</p>
+                    <button><i class="fas fa-cart-plus"></i> Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -726,37 +405,5 @@
     <div class="footer">
         <p>&copy; 2023 E4C Electronics. All rights reserved.</p>
     </div>
-
-    <script>
-        // Mobile Category Menu Toggle
-        const categoryToggle = document.querySelector('.category-toggle');
-        const sidebar = document.querySelector('.sidebar');
-        const overlay = document.querySelector('.overlay');
-        const closeBtn = document.querySelector('.close-btn');
-
-        categoryToggle.addEventListener('click', () => {
-            sidebar.classList.add('active');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        function closeSidebar() {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        closeBtn.addEventListener('click', closeSidebar);
-        overlay.addEventListener('click', closeSidebar);
-
-        // Animation for product cards
-        const productCards = document.querySelectorAll('.product-card');
-        productCards.forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
-        });
-
-        // Touch Events
-        document.addEventListener('touchstart', function() {}, {passive: true});
-    </script>
 </body>
 </html>
