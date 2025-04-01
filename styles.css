@@ -1,130 +1,715 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
+    padding: 20px 50px;
+}
+
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-header h1 {
-    margin: 0;
-}
-
-#cart {
-    font-size: 1.2em;
-}
-
-main {
-    padding: 20px;
-}
-
-.product-list {
+.logo {
+    background-color: #ff4d4d;
+    color: white;
+    width: 40px;
+    height: 40px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
 }
 
-.product-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    width: calc(33.333% - 40px);
-    box-sizing: border-box;
-    text-align: center;
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
 }
 
-.product-card h2 {
-    margin: 0 0 10px;
-}
-
-.product-card p {
-    margin: 0 0 20px;
-}
-
-.add-to-cart {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.add-to-cart:hover {
-    background-color: #218838;
-}
-
-nav {
-    margin: 20px 0;
-}
-
-nav a {
-    color: #ffffff;
+.nav-links a {
     text-decoration: none;
-    margin: 0 15px;
+    color: #333;
 }
 
-nav a:hover {
-    text-decoration: underline;
+.nav-links a.active {
+    color: #ff4d4d;
 }
 
 .container {
-    width: 80%;
-    margin: auto;
+    display: flex;
+    padding: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.content-left {
+    flex: 1;
+    padding-right: 50px;
+}
+
+.chat-bubble {
+    background-color: #7090e8;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+.hire-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 40px;
+}
+
+.brands {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    opacity: 0.6;
+}
+
+.brands img {
+    height: 30px;
+    object-fit: contain;
+}
+
+.content-right {
+    flex: 1;
+    position: relative;
+}
+
+.profile-image {
+    width: 100%;
+    height: 500px;
+    background-color: #e6eeff;
+    border-radius: 0 0 0 100px;
+    position: relative;
     overflow: hidden;
 }
 
-.product {
-    background: #ffffff;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin: 15px 0;
-    text-align: center;
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .content-left {
+        padding-right: 0;
+        margin-bottom: 50px;
+    }
+    
+    h1 {
+        font-size: 36px;
+    }
+    
+    .nav-links {
+        display: none;
+    }
 }
 
-.product img {
-    max-width: 100%;
-    height: auto;
-}
+/* Add these to your existing style.css */
 
-.product h2 {
-    font-size: 1.5em;
-    margin: 10px 0;
-}
-
-.product p {
-    color: #333333;
-}
-
-.product button {
-    background: #35424a;
-    color: #ffffff;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.product button:hover {
-    background: #45a049;
-}
-
-.footer {
-    background: #35424a;
-    color: #ffffff;
-    text-align: center;
-    padding: 10px 0;
+/* Button and Link Animations */
+.nav-links a {
     position: relative;
-    bottom: 0;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ff4d4d;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
     width: 100%;
 }
+
+.hire-btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hire-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3);
+}
+
+.hire-btn:active {
+    transform: translateY(1px);
+}
+
+/* Add animation for page load */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content-left {
+    animation: fadeIn 1s ease-out;
+}
+
+.profile-image {
+    animation: fadeIn 1s ease-out 0.3s backwards;
+}
+
+/* About Page Styles */
+.about-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    animation: fadeIn 1s ease-out;
+}
+
+.about-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+.about-info h2 {
+    color: #ff4d4d;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.age {
+    color: #666;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.about-text {
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 40px;
+}
+
+.skills h3 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.skill {
+    margin-bottom: 20px;
+}
+
+.skill span {
+    display: block;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #ff4d4d;
+    border-radius: 5px;
+    transition: width 1s ease-in-out;
+}
+
+/* Animation for skill bars */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.skill {
+    animation: fadeIn 1s ease-out;
+}
+
+.progress {
+    animation: slideIn 1s ease-out forwards;
+}
+
+/* about update */
+
+/* About Page Styles - Add this to your existing style.css */
+.about-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    animation: fadeIn 1s ease-out;
+}
+
+.about-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+.about-info h2 {
+    color: #ff4d4d;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.age {
+    color: #666;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.about-text {
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 40px;
+}
+
+.skills h3 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.skill {
+    margin-bottom: 20px;
+}
+
+.skill span {
+    display: block;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #ff4d4d;
+    border-radius: 5px;
+    transition: width 1s ease-in-out;
+}
+
+/* Animation for skill bars */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.skill {
+    animation: fadeIn 1s ease-out;
+}
+
+.progress {
+    animation: slideIn 1s ease-out forwards;
+}
+
+
+/* about css update 2 */
+
+
+/* ===============================
+   ENHANCED ABOUT PAGE STYLES
+   =============================== */
+
+.about-main {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding: 50px 0;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.profile-card:hover {
+    transform: translateY(-10px);
+}
+
+.profile-image-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #ff4d4d;
+    box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3);
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    background-color: #e6eeff;
+    background-size: cover;
+    background-position: center;
+}
+
+.profile-card h1 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.profile-card .title {
+    color: #ff4d4d;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.profile-card .age {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: #ff4d4d;
+    color: white;
+    transform: translateY(-3px);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.about-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 2.5em;
+    color: #ff4d4d;
+    margin-bottom: 20px;
+}
+
+.about-card h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.about-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.skills-section {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.skills-section h2 {
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.skills-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.skill-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateX(10px);
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.percentage {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(to right, #ff4d4d, #ff8080);
+    border-radius: 5px;
+    transition: width 1s ease-in-out;
+}
+
+/* Animation for elements */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-card, .about-card, .skills-section {
+    animation: slideUp 0.6s ease-out forwards;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-card {
+        padding: 20px;
+    }
+    
+    .skills-section {
+        padding: 20px;
+    }
+}
+
+/* Enhanced Home Page Styles */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.hero-text {
+    font-size: 1.2em;
+    color: #666;
+    margin: 20px 0 30px;
+    line-height: 1.6;
+}
+
+.profile-image {
+    width: 100%;
+    height: 500px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+    transform: translateY(-10px);
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.services-section {
+    padding: 100px 0;
+    background-color: #f8f9fa;
+}
+
+.services-section h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5em;
+    color: #333;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.service-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.service-card i {
+    font-size: 2.5em;
+    color: #ff4d4d;
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.service-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.brands-section {
+    padding: 100px 0;
+}
+
+.brands-section h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2em;
+    color: #333;
+}
+
+.brands {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.brand-item {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.brand-item:hover {
+    opacity: 1;
+}
+
+/* Update the logo style */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff4d4d;
+    letter-spacing: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .brands {
+        gap: 30px;
+    }
+}
+
