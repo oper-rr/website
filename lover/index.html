@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lover's Grievance Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #ff6f61;
+        }
+        
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            margin-top: 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background-color: #ff6f61;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        button:hover {
+            background-color: #e65b54;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dear Lover ❤️</h1>
+        <form id="grievanceForm">
+            <label for="title">Issue Title</label>
+            <input type="text" id="title" placeholder="What's the issue?" required>
+
+            <label for="details">Details</label>
+            <textarea id="details" rows="4" placeholder="Tell me more..." required></textarea>
+
+            <label for="mood">Your Mood</label>
+            <select id="mood" required>
+                <option value="😢">Sad</option>
+                <option value="😡">Angry</option>
+                <option value="😊">Happy</option>
+                <option value="🤔">Confused</option>
+            </select>
+
+            <button type="submit">Send ❤️</button>
+        </form>
+    </div>
+
+    <script>
+        const webhookUrl = "YOUR_DISCORD_WEBHOOK_URL"; // Replace with your Discord webhook URL
+
+        document.getElementById("grievanceForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const title = document.getElementById("title").value;
+            const details = document.getElementById("details").value;
+            const mood = document.getElementById("mood").value;
+
+            const payload = {
+                content: `**Issue:** ${title}\n**Details:** ${details}\n**Mood:** ${mood}`
+            };
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+
+                if (response.ok) {
+                    alert("Your message has been sent! ❤️");
+                    document.getElementById("grievanceForm").reset();
+                } else {
+                    alert("Failed to send your message. Please try again later.");
+                }
+            } catch (error) {
+                console.error("Error sending webhook:", error);
+                alert("Something went wrong. Please try again.");
+            }
+        });
+    </script>
+</body>
+</html>
