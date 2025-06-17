@@ -7,11 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Pacifico&display=swap');
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Comfortaa', cursive;
@@ -31,12 +27,6 @@
             100% { background-position: 0% 50%; }
         }
         
-        .container {
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-        
         .love-button {
             background: linear-gradient(45deg, #ff69b4, #ff1493, #ff6347);
             border: none;
@@ -48,8 +38,7 @@
             cursor: pointer;
             box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
             transition: all 0.3s ease;
-            font-family: 'Pacifico', cursive;
-            letter-spacing: 1px;
+            font-family: 'Comfortaa', cursive;
         }
         
         .love-button:hover {
@@ -60,52 +49,32 @@
         .love-message {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(255, 182, 193, 0.95);
             z-index: 100;
-            animation: fadeIn 1s ease;
-            overflow-y: auto;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .message-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #8b0054;
-            max-width: 90%;
-            max-height: 90%;
             overflow-y: auto;
             padding: 20px;
         }
         
+        .message-content {
+            max-width: 800px;
+            margin: 80px auto 40px auto;
+            color: #8b0054;
+            padding: 0 10px;
+        }
+        
         .love-text {
             font-family: 'Comfortaa', cursive;
-            font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+            font-size: 1.1rem;
             font-weight: 500;
-            margin: 20px 0;
             text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            animation: heartbeat 2s ease-in-out infinite;
+            line-height: 1.8;
             text-align: left;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             padding: 30px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
-        }
-        
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
         }
         
         .kiss-button {
@@ -117,53 +86,33 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
             transition: all 0.3s ease;
             font-family: 'Pacifico', cursive;
-            margin-top: 20px;
-        }
-        
-        .kiss-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.6);
+            margin: 20px auto;
+            display: block;
         }
         
         .kiss-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(255, 105, 180, 0.8);
             z-index: 200;
-            animation: fadeIn 0.5s ease;
         }
         
         .big-kiss {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             font-size: 15rem;
             animation: kissAnimation 2s ease-in-out;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
         }
         
         @keyframes kissAnimation {
             0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); }
             50% { transform: translate(-50%, -50%) scale(1.2) rotate(180deg); }
             100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
-        }
-        
-        .emoji-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 50;
         }
         
         .floating-emoji {
@@ -174,51 +123,27 @@
         }
         
         @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
         
         .close-btn {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            background: rgba(255, 255, 255, 0.3);
+            position: fixed;
+            top: 20px; right: 20px;
+            background: rgba(255, 255, 255, 0.4);
             border: none;
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             border-radius: 50%;
             color: #8b0054;
             font-size: 24px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            z-index: 101;
         }
         
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
-            transform: scale(1.1);
-        }
-        
-        .hearts-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
+        .emoji-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+        .hearts-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         
         .heart {
             position: absolute;
@@ -228,35 +153,27 @@
         }
         
         @keyframes heartFloat {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(180deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(180deg); opacity: 0; }
         }
 
         @media (max-width: 768px) {
-            .love-text {
-                font-size: clamp(0.8rem, 3vw, 1.1rem);
-                padding: 20px;
-            }
-            
-            .big-kiss {
-                font-size: 8rem;
-            }
-            
-            .floating-emoji {
-                font-size: 2.5rem;
-            }
+            .message-content { margin: 60px auto 20px auto; padding: 0 5px; }
+            .love-text { font-size: 1rem; padding: 20px; line-height: 1.6; }
+            .big-kiss { font-size: 8rem; }
+            .floating-emoji { font-size: 2.5rem; }
+            .close-btn { top: 15px; right: 15px; width: 45px; height: 45px; font-size: 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .love-message { padding: 5px; }
+            .message-content { margin: 50px auto 15px auto; }
+            .love-text { font-size: 0.95rem; padding: 15px; line-height: 1.5; }
+            .big-kiss { font-size: 6rem; }
+            .floating-emoji { font-size: 2rem; }
+            .close-btn { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 18px; }
         }
     </style>
 </head>
@@ -264,9 +181,7 @@
     <div class="hearts-bg" id="heartsBg"></div>
     
     <div class="container">
-        <button class="love-button" onclick="showLove()">
-            💕 Click for Love 💕
-        </button>
+        <button class="love-button" onclick="showLove()">💕 Click for Love 💕</button>
     </div>
     
     <div class="love-message" id="loveMessage">
@@ -299,10 +214,7 @@
                 heart.style.animationDelay = Math.random() * 2 + 's';
                 heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
                 heartsContainer.appendChild(heart);
-                
-                setTimeout(() => {
-                    heart.remove();
-                }, 7000);
+                setTimeout(() => heart.remove(), 7000);
             }, 1000);
         }
         
@@ -318,14 +230,11 @@
         
         function showKiss() {
             document.getElementById('kissOverlay').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('kissOverlay').style.display = 'none';
-            }, 2000);
+            setTimeout(() => document.getElementById('kissOverlay').style.display = 'none', 2000);
         }
         
         function createFloatingEmojis() {
             const container = document.getElementById('emojiContainer');
-            
             setInterval(() => {
                 if (document.getElementById('loveMessage').style.display === 'block') {
                     for (let i = 0; i < 3; i++) {
@@ -337,22 +246,14 @@
                             emoji.style.animationDelay = Math.random() * 2 + 's';
                             emoji.style.animationDuration = (Math.random() * 2 + 3) + 's';
                             container.appendChild(emoji);
-                            
-                            setTimeout(() => {
-                                if (emoji.parentNode) {
-                                    emoji.remove();
-                                }
-                            }, 5000);
+                            setTimeout(() => { if (emoji.parentNode) emoji.remove(); }, 5000);
                         }, i * 200);
                     }
                 }
             }, 800);
         }
         
-        // Start background hearts when page loads
-        window.onload = function() {
-            createBackgroundHearts();
-        };
+        window.onload = function() { createBackgroundHearts(); };
     </script>
 </body>
 </html>
