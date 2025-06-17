@@ -2,20 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Beat Up Ribab</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-        
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Press Start 2P', cursive;
             background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
             min-height: 100vh;
             user-select: none;
+            overflow: hidden;
         }
-        
+
         .game-container {
             max-width: 400px;
             margin: 0 auto;
@@ -24,7 +25,7 @@
             border: 4px solid #333;
             position: relative;
         }
-        
+
         .header {
             background: #2c3e50;
             color: #ecf0f1;
@@ -32,18 +33,18 @@
             text-align: center;
             border-bottom: 4px solid #34495e;
         }
-        
-        .title { font-size: 12px; margin-bottom: 5px; }
-        
+
+        .title { font-size: 14px; margin-bottom: 5px; }
+
         .game-stats {
             display: flex;
             justify-content: space-between;
-            font-size: 8px;
+            font-size: 10px;
             color: #f39c12;
         }
-        
+
         .timer { color: #e74c3c; }
-        
+
         .game-area {
             height: 60vh;
             display: flex;
@@ -51,45 +52,43 @@
             justify-content: center;
             position: relative;
         }
-        
+
         .character {
-    width: 370px; /* 120px + 250px */
-    height: 370px; /* 120px + 250px */
-    border: 3px solid #333;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 4px 4px 0px #333;
-    background-size: cover;
-    background-position: center;
-    /* 🎯 REPLACE WITH YOUR NORMAL IMAGE */
-    background-image: url('first.png');
-    animation: idle 2s ease-in-out infinite;
-}
+            width: 250px;
+            height: 250px;
+            border: 3px solid #333;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #333;
+            background-size: cover;
+            background-position: center;
+            background-image: url('first.png');
+            animation: idle 2s ease-in-out infinite;
+            transition: transform 0.2s;
+        }
 
-.character.hurt {
-    /* 🎯 REPLACE WITH YOUR HURT IMAGE */
-    background-image: url('second.png') !important;
-    animation: shake 0.5s ease;
-}
+        .character.hurt {
+            background-image: url('second.png') !important;
+            animation: hurtAnimation 0.3s ease;
+        }
 
-        
         .character.game-over {
             filter: grayscale(100%);
             opacity: 0.7;
             cursor: not-allowed;
         }
-        
+
         @keyframes idle {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-5px); }
         }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0px); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+
+        @keyframes hurtAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
-        
+
         .weapons-panel {
             position: absolute;
             bottom: 0;
@@ -99,14 +98,14 @@
             border-top: 4px solid #2c3e50;
             padding: 20px;
         }
-        
+
         .weapons-title {
             color: #ecf0f1;
             font-size: 10px;
             text-align: center;
             margin-bottom: 15px;
         }
-        
+
         .weapons-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -114,7 +113,7 @@
             max-width: 300px;
             margin: 0 auto;
         }
-        
+
         .weapon {
             background: #e74c3c;
             border: 3px solid #c0392b;
@@ -125,26 +124,26 @@
             transition: all 0.2s ease;
             box-shadow: 2px 2px 0px #a93226;
         }
-        
+
         .weapon:hover {
             background: #c0392b;
             transform: translateY(-2px);
         }
-        
+
         .weapon.selected {
             background: #f39c12;
             border-color: #e67e22;
         }
-        
+
         .weapon.disabled {
             background: #7f8c8d;
             cursor: not-allowed;
             opacity: 0.6;
         }
-        
+
         .weapon-icon { font-size: 20px; margin-bottom: 5px; }
-        .weapon-name { font-size: 6px; color: white; }
-        
+        .weapon-name { font-size: 8px; color: white; }
+
         .hit-effect {
             position: absolute;
             pointer-events: none;
@@ -152,12 +151,12 @@
             animation: hitEffect 1s ease-out forwards;
             z-index: 10;
         }
-        
+
         @keyframes hitEffect {
             0% { opacity: 1; transform: scale(0.8); }
             100% { opacity: 0; transform: scale(1.5) translateY(-50px); }
         }
-        
+
         .game-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -171,27 +170,27 @@
             text-align: center;
             padding: 20px;
         }
-        
+
         .game-overlay.hidden { display: none; }
-        
+
         .overlay-title {
             font-size: 16px;
             margin-bottom: 20px;
             color: #f39c12;
         }
-        
+
         .overlay-text {
             font-size: 8px;
             margin-bottom: 10px;
             line-height: 1.5;
         }
-        
+
         .final-score {
             font-size: 20px;
             color: #e74c3c;
             margin: 20px 0;
         }
-        
+
         .start-button, .restart-button {
             background: #27ae60;
             border: 3px solid #229954;
@@ -204,15 +203,20 @@
             margin-top: 20px;
             box-shadow: 2px 2px 0px #1e8449;
         }
-        
+
         .start-button:hover, .restart-button:hover {
             background: #229954;
             transform: translateY(-2px);
         }
-        
+
         @media (max-width: 480px) {
-            .character { width: 100px; height: 100px; }
-            .weapon { padding: 12px 8px; }
+            .character {
+                width: 200px;
+                height: 200px;
+            }
+            .weapon {
+                padding: 12px 8px;
+            }
             .weapon-icon { font-size: 18px; }
         }
     </style>
@@ -227,11 +231,11 @@
                 <div>BEST: <span id="bestScore">0</span></div>
             </div>
         </div>
-        
+
         <div class="game-area">
             <div class="character" id="character"></div>
         </div>
-        
+
         <div class="weapons-panel">
             <div class="weapons-title">SELECT YOUR WEAPON</div>
             <div class="weapons-grid">
@@ -253,7 +257,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="game-overlay" id="startScreen">
             <div class="overlay-title">BEAT UP RIBAB!</div>
             <div class="overlay-text">Hit Ribab as many times as you can!</div>
@@ -261,7 +265,7 @@
             <div class="overlay-text">Select weapons and tap to attack!</div>
             <button class="start-button" id="startButton">START GAME</button>
         </div>
-        
+
         <div class="game-overlay hidden" id="gameOverScreen">
             <div class="overlay-title">TIME'S UP!</div>
             <div class="final-score" id="finalScore">0</div>
@@ -289,7 +293,7 @@
                     gameArea: document.querySelector('.game-area'),
                     weapons: document.querySelectorAll('.weapon')
                 };
-                
+
                 this.state = {
                     score: 0,
                     timeRemaining: 30,
@@ -297,73 +301,73 @@
                     selectedWeapon: 'bat',
                     maxScore: parseInt(localStorage.getItem('ribabBestScore') || '0')
                 };
-                
+
                 this.init();
             }
-            
+
             init() {
                 this.elements.startButton.addEventListener('click', () => this.startGame());
                 this.elements.restartButton.addEventListener('click', () => this.startGame());
-                
+
                 this.elements.weapons.forEach(weapon => {
                     weapon.addEventListener('click', () => this.selectWeapon(weapon));
                 });
-                
+
                 this.elements.character.addEventListener('click', (e) => this.hitCharacter(e));
                 this.elements.character.addEventListener('touchstart', (e) => {
                     e.preventDefault();
                     this.hitCharacter(e);
                 });
-                
+
                 this.updateDisplay();
             }
-            
+
             selectWeapon(weapon) {
                 if (!this.state.gameActive) return;
                 this.elements.weapons.forEach(w => w.classList.remove('selected'));
                 weapon.classList.add('selected');
                 this.state.selectedWeapon = weapon.dataset.weapon;
             }
-            
+
             startGame() {
                 this.state.score = 0;
                 this.state.timeRemaining = 30;
                 this.state.gameActive = true;
-                
+
                 this.elements.startScreen.classList.add('hidden');
                 this.elements.gameOverScreen.classList.add('hidden');
                 this.elements.character.classList.remove('game-over');
                 this.elements.weapons.forEach(w => w.classList.remove('disabled'));
-                
+
                 this.updateDisplay();
                 this.gameTimer = setInterval(() => this.tick(), 1000);
             }
-            
+
             tick() {
                 this.state.timeRemaining--;
                 this.updateDisplay();
                 if (this.state.timeRemaining <= 0) this.endGame();
             }
-            
+
             endGame() {
                 this.state.gameActive = false;
                 clearInterval(this.gameTimer);
-                
+
                 this.elements.character.classList.add('game-over');
                 this.elements.weapons.forEach(w => w.classList.add('disabled'));
-                
+
                 if (this.state.score > this.state.maxScore) {
                     this.state.maxScore = this.state.score;
                     localStorage.setItem('ribabBestScore', this.state.maxScore);
                 }
-                
+
                 this.showGameOverScreen();
             }
-            
+
             showGameOverScreen() {
                 this.elements.finalScore.textContent = this.state.score;
                 this.elements.displayBestScore.textContent = this.state.maxScore;
-                
+
                 const messages = {
                     100: 'LEGENDARY! 🔥',
                     75: 'BRUTAL! 💀',
@@ -371,28 +375,28 @@
                     25: 'Good! 👍',
                     0: 'Try again! 😅'
                 };
-                
+
                 const message = Object.entries(messages).find(([threshold]) => 
                     this.state.score >= parseInt(threshold)
                 )?.[1] || 'Try again! 😅';
-                
+
                 this.elements.scoreMessage.textContent = message;
                 this.elements.gameOverScreen.classList.remove('hidden');
             }
-            
+
             hitCharacter(e) {
                 if (!this.state.gameActive) return;
-                
+
                 this.state.score++;
                 this.elements.character.classList.add('hurt');
                 this.createHitEffect(e);
                 this.updateDisplay();
-                
+
                 setTimeout(() => {
                     this.elements.character.classList.remove('hurt');
-                }, 500);
+                }, 300);
             }
-            
+
             createHitEffect(e) {
                 const effects = {
                     hammer: ['💥', '🔧'],
@@ -400,37 +404,37 @@
                     mallet: ['💢', '⭐'],
                     boxing: ['👊', '💥']
                 };
-                
+
                 const effect = document.createElement('div');
                 effect.className = 'hit-effect';
                 effect.textContent = (effects[this.state.selectedWeapon] || ['💥'])[
                     Math.floor(Math.random() * 2)
                 ];
-                
+
                 const rect = this.elements.character.getBoundingClientRect();
                 const gameRect = this.elements.gameArea.getBoundingClientRect();
-                
+
                 effect.style.left = (rect.left - gameRect.left + Math.random() * rect.width) + 'px';
                 effect.style.top = (rect.top - gameRect.top + Math.random() * rect.height) + 'px';
-                
+
                 this.elements.gameArea.appendChild(effect);
                 setTimeout(() => effect.remove(), 1000);
             }
-            
+
             updateDisplay() {
                 this.elements.currentScore.textContent = this.state.score;
                 this.elements.timeLeft.textContent = this.state.timeRemaining;
                 this.elements.bestScore.textContent = this.state.maxScore;
             }
         }
-        
+
         document.addEventListener('DOMContentLoaded', () => new BeatUpGame());
-        
+
         // Prevent zoom on mobile
         document.addEventListener('touchstart', (e) => {
             if (e.touches.length > 1) e.preventDefault();
         });
-        
+
         let lastTouchEnd = 0;
         document.addEventListener('touchend', (e) => {
             const now = Date.now();
