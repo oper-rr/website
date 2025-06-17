@@ -53,24 +53,25 @@
         }
         
         .character {
-            width: 120px;
-            height: 120px;
-            border: 3px solid #333;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px #333;
-            background-size: cover;
-            background-position: center;
-            /* 🎯 REPLACE WITH YOUR NORMAL IMAGE */
-            background-image: url('first.png');
-            animation: idle 2s ease-in-out infinite;
-        }
-        
-        .character.hurt {
-            /* 🎯 REPLACE WITH YOUR HURT IMAGE */
-            background-image: url('second.png') !important;
-            animation: shake 0.5s ease;
-        }
+    width: 370px; /* 120px + 250px */
+    height: 370px; /* 120px + 250px */
+    border: 3px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #333;
+    background-size: cover;
+    background-position: center;
+    /* 🎯 REPLACE WITH YOUR NORMAL IMAGE */
+    background-image: url('first.png');
+    animation: idle 2s ease-in-out infinite;
+}
+
+.character.hurt {
+    /* 🎯 REPLACE WITH YOUR HURT IMAGE */
+    background-image: url('second.png') !important;
+    animation: shake 0.5s ease;
+}
+
         
         .character.game-over {
             filter: grayscale(100%);
