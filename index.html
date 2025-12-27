@@ -3,379 +3,374 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MERCURY ECHO // AI + VFX</title>
+    <title>Fayis Muhammed | NIFT Designer 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,900&f[]=ibm-plex-mono@100,400,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800&display=swap');
 
         :root {
-            --bg: #000000;
-            --chrome: #e2e2e2;
-            --accent: #ffffff;
+            --accent: #00ffaa;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Custom cursor */
         }
 
         body {
             background-color: var(--bg);
-            color: #fff;
-            font-family: 'IBM Plex Mono', monospace;
-            margin: 0;
-            overflow: hidden;
-            cursor: none;
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
 
-        .font-clash { font-family: 'Clash Display', sans-serif; }
-
-        canvas#vfx-canvas {
+        #canvas-container {
             position: fixed;
-            inset: 0;
-            z-index: 1;
-        }
-
-        /* HUD Layers */
-        .hud-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            pointer-events: none;
-            padding: 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .hud-data {
-            font-size: 10px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            opacity: 0.4;
-        }
-
-        /* Perspective Container */
-        #stage {
-            position: fixed;
-            inset: 0;
-            z-index: 10;
-            perspective: 2000px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-        }
-
-        .echo-node {
-            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease-out;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--accent);
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(15px) saturate(180%);
+            background: rgba(5, 5, 5, 0.8);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-img {
+            aspect-ratio: 16/10;
+            background: linear-gradient(45deg, #111, #222);
+            overflow: hidden;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .project-img::after {
+            content: 'VIEW PROJECT';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 255, 170, 0.8);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            pointer-events: auto;
-            will-change: transform, opacity, filter;
+            color: black;
+            font-weight: 800;
+            opacity: 0;
+            transition: 0.3s;
         }
 
-        .echo-title {
-            font-family: 'Clash Display', sans-serif;
-            font-weight: 900;
-            font-size: clamp(3rem, 15vw, 20rem);
-            line-height: 0.8;
-            letter-spacing: -0.06em;
+        .project-img:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-item {
+            font-size: 5vw;
+            font-weight: 800;
+            padding: 0 40px;
             text-transform: uppercase;
-            text-align: center;
-            color: #fff;
-            transition: color 0.3s;
-        }
-
-        .echo-title span {
-            display: block;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
             color: transparent;
         }
 
-        .echo-node:hover .echo-title span {
-            color: #fff;
-            -webkit-text-stroke: 1px transparent;
-        }
-
-        .echo-meta {
-            font-size: 11px;
-            letter-spacing: 0.8em;
-            text-transform: uppercase;
-            margin-top: 2rem;
-            opacity: 0.3;
-        }
-
-        /* Custom Cursor */
-        #cursor {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: #fff;
-            border-radius: 50%;
-            z-index: 1000;
-            pointer-events: none;
-            mix-blend-mode: difference;
-        }
-
-        #cursor-ring {
-            position: fixed;
-            width: 50px;
-            height: 50px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            z-index: 999;
-            pointer-events: none;
-            transition: transform 0.1s ease;
-        }
-
-        /* Progress Tracker */
-        .progress-track {
-            position: fixed;
-            left: 3rem;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 200px;
-            width: 1px;
-            background: rgba(255,255,255,0.1);
-            z-index: 100;
-        }
-
-        .progress-bar {
-            width: 100%;
-            background: #fff;
-            height: 0%;
-            box-shadow: 0 0 10px #fff;
-        }
-
-        .film-grain {
-            position: fixed;
-            inset: 0;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
-            opacity: 0.05;
-            z-index: 200;
-            pointer-events: none;
+        .marquee-item span {
+            color: white;
         }
     </style>
 </head>
 <body>
 
-    <div class="film-grain"></div>
-    <div id="cursor"></div>
-    <div id="cursor-ring"></div>
-    
-    <canvas id="vfx-canvas"></canvas>
+    <div id="canvas-container"></div>
+    <div class="custom-cursor" id="cursor"></div>
 
-    <!-- UI: HUD -->
-    <div class="hud-overlay">
-        <div class="flex justify-between items-start">
-            <div class="hud-data">
-                SYSTEM // MERCURY_ECHO<br/>
-                MODEL_TYPE: AI_VFX_TRAINER
-            </div>
-            <div class="text-right hud-data">
-                LATENT_LOC: <span id="depth-val" class="text-white">0</span>.00<br/>
-                STATUS: SYNCED
-            </div>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-blur px-6 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold tracking-tighter">FM<span class="text-[#00ffaa]">.</span></div>
+        <div class="hidden md:flex space-x-10 text-sm font-medium tracking-widest uppercase opacity-70">
+            <a href="#work" class="hover:text-[#00ffaa] transition">Work</a>
+            <a href="#about" class="hover:text-[#00ffaa] transition">About</a>
+            <a href="#contact" class="hover:text-[#00ffaa] transition">Connect</a>
         </div>
+        <button class="bg-white text-black px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#00ffaa] transition duration-500">
+            Menu
+        </button>
+    </nav>
 
-        <div class="flex justify-between items-end">
-            <div class="hud-data">
-                [X] <span id="mouse-x">0</span><br/>
-                [Y] <span id="mouse-y">0</span>
-            </div>
-            <div class="flex gap-12 pointer-events-auto">
-                <a href="#" class="hud-data hover:text-white transition-opacity">Archive</a>
-                <a href="#" class="hud-data hover:text-white transition-opacity">Nexus</a>
-            </div>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 relative">
+        <div class="text-center z-10">
+            <h2 class="text-[#00ffaa] text-sm md:text-base font-bold tracking-[0.4em] uppercase mb-4 reveal">NIFT Designer — Visual Alchemist</h2>
+            <h1 class="text-6xl md:text-9xl font-extrabold tracking-tighter leading-none mb-8 reveal" style="transition-delay: 200ms;">
+                FAYIS<br>MUHAMMED
+            </h1>
+            <p class="max-w-xl mx-auto text-gray-400 text-lg md:text-xl reveal" style="transition-delay: 400ms;">
+                Designing the future of aesthetics at the intersection of fashion, technology, and human emotion. Class of 2026.
+            </p>
+        </div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-30">
+            <i data-lucide="mouse" class="w-6 h-6"></i>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-container mb-32">
+        <div class="marquee-content">
+            <div class="marquee-item">NIFT DESIGNER <span>•</span> CREATIVE DIRECTOR <span>•</span> ARTIST <span>•</span> FUTURE THINKER <span>•</span></div>
+            <div class="marquee-item">NIFT DESIGNER <span>•</span> CREATIVE DIRECTOR <span>•</span> ARTIST <span>•</span> FUTURE THINKER <span>•</span></div>
         </div>
     </div>
 
-    <div class="progress-track">
-        <div class="progress-bar" id="p-bar"></div>
-    </div>
-
-    <!-- The 3D Tunnel -->
-    <main id="stage">
-        <!-- Frame 01 -->
-        <div class="echo-node" data-z="0">
-            <div class="echo-meta">// INITIAL STATE</div>
-            <h2 class="echo-title">MERCURY<span>ECHO</span></h2>
+    <!-- Projects Grid -->
+    <section id="work" class="max-w-7xl mx-auto px-6 mb-40">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+            <div>
+                <span class="text-[#00ffaa] font-bold tracking-widest uppercase text-sm">Selected Works</span>
+                <h3 class="text-5xl font-bold mt-2">PROJECTS<span class="opacity-30">/026</span></h3>
+            </div>
+            <p class="text-gray-500 max-w-xs mt-6 md:mt-0 italic">A curated selection of experiments in form, textile, and digital identity.</p>
         </div>
 
-        <!-- Frame 02 -->
-        <div class="echo-node" data-z="-2000">
-            <div class="echo-meta">// PROJECT_01</div>
-            <h2 class="echo-title">NEURAL<span>DREAMS</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Project 1 -->
+            <div class="glass-card p-4 reveal" style="transition-delay: 100ms;">
+                <div class="project-img mb-6">
+                    <svg viewBox="0 0 400 250" class="w-full h-full opacity-20">
+                        <rect width="100%" height="100%" fill="none" stroke="white" stroke-dasharray="10"/>
+                        <text x="50%" y="50%" text-anchor="middle" fill="white" font-size="12">NEO-DRAPERY EXPERIMENT</text>
+                    </svg>
+                </div>
+                <div class="px-2">
+                    <h4 class="text-2xl font-bold mb-2">Cybernetic Couture</h4>
+                    <p class="text-gray-400 text-sm mb-4">Integrating soft robotics into sustainable high-fashion silhouettes.</p>
+                    <div class="flex space-x-2">
+                        <span class="text-[10px] border border-white/20 px-2 py-1 rounded-full opacity-50">3D DESIGN</span>
+                        <span class="text-[10px] border border-white/20 px-2 py-1 rounded-full opacity-50">TEXTILE</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="glass-card p-4 reveal" style="transition-delay: 300ms;">
+                <div class="project-img mb-6">
+                    <svg viewBox="0 0 400 250" class="w-full h-full opacity-20">
+                        <rect width="100%" height="100%" fill="none" stroke="white" stroke-dasharray="10"/>
+                        <text x="50%" y="50%" text-anchor="middle" fill="white" font-size="12">LIQUID FORM STUDIES</text>
+                    </svg>
+                </div>
+                <div class="px-2">
+                    <h4 class="text-2xl font-bold mb-2">Fluid Identity</h4>
+                    <p class="text-gray-400 text-sm mb-4">A digital-first collection exploring the dissolving boundaries of gender.</p>
+                    <div class="flex space-x-2">
+                        <span class="text-[10px] border border-white/20 px-2 py-1 rounded-full opacity-50">CLO3D</span>
+                        <span class="text-[10px] border border-white/20 px-2 py-1 rounded-full opacity-50">CONCEPT</span>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Frame 03 -->
-        <div class="echo-node" data-z="-4000">
-            <div class="echo-meta">// PROJECT_02</div>
-            <h2 class="echo-title">VOX<span>FLUID</span></h2>
+    <!-- About / NIFT Stats -->
+    <section id="about" class="bg-white/5 py-32 mb-40">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+            <div class="reveal">
+                <h3 class="text-sm font-bold text-[#00ffaa] tracking-[0.5em] uppercase mb-6">The Designer</h3>
+                <p class="text-3xl md:text-4xl font-light leading-relaxed">
+                    Based in the vibrant design landscape of <span class="font-bold underline">NIFT</span>, I blend traditional Indian craftsmanship with futuristic digital workflows. 
+                </p>
+                <div class="grid grid-cols-2 gap-8 mt-12">
+                    <div>
+                        <div class="text-4xl font-bold mb-1">04+</div>
+                        <div class="text-xs uppercase tracking-widest text-gray-500">Years Experience</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold mb-1">20+</div>
+                        <div class="text-xs uppercase tracking-widest text-gray-500">Projects Completed</div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card aspect-square flex items-center justify-center p-12 reveal" style="transition-delay: 200ms;">
+                <div class="text-center">
+                    <i data-lucide="cpu" class="w-16 h-16 mx-auto mb-6 text-[#00ffaa]"></i>
+                    <h4 class="text-xl font-bold mb-4">Tech Stack</h4>
+                    <ul class="text-gray-400 space-y-2 text-sm uppercase tracking-tighter">
+                        <li>CLO3D / Marvelous Designer</li>
+                        <li>Adobe Creative Cloud</li>
+                        <li>Generative AI Workflows</li>
+                        <li>Sustainable Textile Dev</li>
+                        <li>Augmented Reality (AR) Fashion</li>
+                    </ul>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Frame 04 -->
-        <div class="echo-node" data-z="-6000">
-            <div class="echo-meta">// PROJECT_03</div>
-            <h2 class="echo-title">LATENT<span>OS</span></h2>
+    <!-- Footer / Contact -->
+    <footer id="contact" class="max-w-7xl mx-auto px-6 pb-20">
+        <div class="glass-card p-12 md:p-24 text-center reveal">
+            <h2 class="text-4xl md:text-7xl font-bold tracking-tighter mb-8">Ready to define the <br><span class="text-[#00ffaa]">next era?</span></h2>
+            <div class="flex flex-col md:flex-row justify-center gap-6 mt-12">
+                <a href="mailto:hello@fayis.design" class="bg-white text-black px-10 py-4 rounded-full font-bold hover:scale-110 transition">EMAIL ME</a>
+                <a href="#" class="border border-white/20 px-10 py-4 rounded-full font-bold hover:bg-white/10 transition">INSTAGRAM</a>
+            </div>
         </div>
-
-        <!-- Frame 05 -->
-        <div class="echo-node" data-z="-8000">
-            <div class="echo-meta">// CONTACT</div>
-            <h2 class="echo-title">ESTABLISH<span>SYNC</span></h2>
+        <div class="flex justify-between items-center mt-20 opacity-30 text-xs uppercase tracking-[0.3em]">
+            <p>&copy; 2026 FAYIS MUHAMMED</p>
+            <p>DESIGNED FOR THE FUTURE</p>
         </div>
-    </main>
-
-    <!-- VFX Warp Shader -->
-    <script id="vertexShader" type="x-shader/x-vertex">
-        varying vec2 vUv;
-        void main() {
-            vUv = uv;
-            gl_Position = vec4(position, 1.0);
-        }
-    </script>
-
-    <script id="fragmentShader" type="x-shader/x-fragment">
-        precision highp float;
-        uniform float uTime;
-        uniform vec2 uResolution;
-        uniform float uScrollSpeed;
-        varying vec2 vUv;
-
-        float rand(vec2 n) { 
-            return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
-        }
-
-        void main() {
-            vec2 uv = gl_FragCoord.xy / uResolution.xy;
-            vec2 centeredUv = uv - 0.5;
-            
-            float dist = length(centeredUv);
-            // Warp intensity based on scroll speed
-            float warp = pow(dist, 2.0) * uScrollSpeed * 1.5;
-            vec2 warpedUv = uv + centeredUv * warp;
-            
-            // Procedural Chromatic Aberration
-            // Shift the coordinates for each channel based on scroll speed
-            float shift = uScrollSpeed * 0.02;
-            
-            float r_noise = rand(warpedUv + vec2(shift, 0.0) + uTime * 0.005);
-            float g_noise = rand(warpedUv + uTime * 0.005);
-            float b_noise = rand(warpedUv - vec2(shift, 0.0) + uTime * 0.005);
-
-            // Base gradient
-            vec3 baseColor = mix(vec3(0.005), vec3(0.04), dist);
-            
-            // Add the "chromatic" procedural noise
-            vec3 color = baseColor;
-            color.r += r_noise * 0.015;
-            color.g += g_noise * 0.015;
-            color.b += b_noise * 0.015;
-            
-            // Vignette
-            float vignette = smoothstep(1.2, 0.2, dist);
-            color *= vignette;
-
-            gl_FragColor = vec4(color, 1.0);
-        }
-    </script>
+    </footer>
 
     <script>
-        // --- CORE ENGINE ---
-        const cursor = document.getElementById('cursor');
-        const cursorRing = document.getElementById('cursor-ring');
-        const nodes = document.querySelectorAll('.echo-node');
-        const canvas = document.getElementById('vfx-canvas');
-        
-        // Three.js Background
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-        
-        const uniforms = {
-            uTime: { value: 0 },
-            uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-            uScrollSpeed: { value: 0 }
-        };
+        window.onload = function () {
+            // Initialize Lucide Icons safely
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
 
-        const material = new THREE.ShaderMaterial({
-            uniforms: uniforms,
-            vertexShader: document.getElementById('vertexShader').textContent,
-            fragmentShader: document.getElementById('fragmentShader').textContent
-        });
-
-        scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material));
-
-        function resize() {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        // --- INTERACTION ---
-        let scrollZ = 0, targetScrollZ = 0, scrollSpeed = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0 });
-            gsap.to(cursorRing, { x: e.clientX - 25, y: e.clientY - 25, duration: 0.2 });
-            document.getElementById('mouse-x').innerText = e.clientX;
-            document.getElementById('mouse-y').innerText = e.clientY;
-        });
-
-        window.addEventListener('wheel', (e) => {
-            targetScrollZ -= e.deltaY * 2.5;
-            // Clamping range
-            targetScrollZ = Math.min(0, Math.max(targetScrollZ, -8500));
-        });
-
-        // --- ANIMATION LOOP ---
-        function animate(time) {
-            uniforms.uTime.value = time * 0.001;
-
-            // Interpolate Z-Scroll
-            const prevZ = scrollZ;
-            scrollZ += (targetScrollZ - scrollZ) * 0.06;
-            scrollSpeed = Math.abs(scrollZ - prevZ);
-            
-            // Update UI
-            document.getElementById('depth-val').innerText = Math.floor(Math.abs(scrollZ));
-            document.getElementById('p-bar').style.height = (Math.abs(scrollZ) / 8500 * 100) + "%";
-            uniforms.uScrollSpeed.value = scrollSpeed * 0.05;
-
-            // Transform Nodes
-            nodes.forEach(node => {
-                const baseZ = parseFloat(node.getAttribute('data-z'));
-                const relativeZ = baseZ - scrollZ;
-                
-                let opacity = 1;
-                if (relativeZ > 0) {
-                    opacity = 1 - (relativeZ / 500); // Pass camera and fade out
-                } else {
-                    opacity = 1 - (Math.abs(relativeZ) / 3000); // Fade from distance
-                }
-
-                const scale = 1 + (relativeZ / 1000);
-                const blur = Math.abs(relativeZ) / 200;
-
-                gsap.set(node, {
-                    z: relativeZ,
-                    opacity: opacity < 0 ? 0 : opacity,
-                    filter: `blur(${blur}px)`,
-                    display: relativeZ > 600 || relativeZ < -5000 ? 'none' : 'flex'
-                });
+            // Custom Cursor Logic
+            const cursor = document.getElementById('cursor');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
             });
 
-            renderer.render(scene, camera);
-            requestAnimationFrame(animate);
-        }
-        requestAnimationFrame(animate);
+            document.addEventListener('mousedown', () => cursor.style.transform = 'scale(0.8)');
+            document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
 
-        lucide.createIcons();
+            // Three.js Particle Background
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            for (let i = 0; i < 5000; i++) {
+                vertices.push(THREE.MathUtils.randFloatSpread(2000)); // x
+                vertices.push(THREE.MathUtils.randFloatSpread(2000)); // y
+                vertices.push(THREE.MathUtils.randFloatSpread(2000)); // z
+            }
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            const material = new THREE.PointsMaterial({ color: 0x00ffaa, size: 2, transparent: true, opacity: 0.4 });
+            const points = new THREE.Points(geometry, material);
+            scene.add(points);
+
+            camera.position.z = 1000;
+
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX - window.innerWidth / 2) * 0.05;
+                mouseY = (e.clientY - window.innerHeight / 2) * 0.05;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                points.rotation.x += 0.001;
+                points.rotation.y += 0.001;
+                
+                camera.position.x += (mouseX - camera.position.x) * 0.05;
+                camera.position.y += (-mouseY - camera.position.y) * 0.05;
+                camera.lookAt(scene.position);
+                
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Resize handler
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            // Intersection Observer for Reveal Animations
+            const observerOptions = { threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Hover effect for buttons/links
+            const interactables = document.querySelectorAll('button, a');
+            interactables.forEach(btn => {
+                btn.addEventListener('mouseenter', () => cursor.style.transform = 'scale(3)');
+                btn.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+            });
+        };
     </script>
 </body>
 </html>
