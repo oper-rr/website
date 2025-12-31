@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A Starry Night for You ✨</title>
 
-  <!-- Premium romantic fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
@@ -16,9 +15,7 @@
       --moon:#ffffff;
       --paper:#fffaf3;
     }
-
     *{box-sizing:border-box}
-
     body{
       margin:0;min-height:100vh;
       background:
@@ -28,10 +25,8 @@
       font-family:'Manrope',sans-serif;color:#fff;overflow:hidden;
     }
 
-    /* ---------- STARFIELD (RANDOM + ENDLESS) ---------- */
-    .sky{
-      position:fixed;inset:-200vh 0 0 0;
-      pointer-events:none;
+    /* STARFIELD */
+    .sky{position:fixed;inset:-200vh 0 0 0;pointer-events:none;
       background-image:
         radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%),
         radial-gradient(1px 1px at 77% 33%, #fff 50%, transparent 51%),
@@ -43,103 +38,46 @@
         radial-gradient(2px 2px at 55% 45%, #fff 50%, transparent 51%),
         radial-gradient(1px 1px at 88% 8%, #fff 50%, transparent 51%),
         radial-gradient(1.5px 1.5px at 15% 50%, #fff 50%, transparent 51%);
-      background-size:400px 400px;
-      animation: starScroll 180s linear infinite;
-    }
+      background-size:400px 400px;animation:starScroll 180s linear infinite;}
+    @keyframes starScroll{from{transform:translateY(0)}to{transform:translateY(200vh)}}
 
-    @keyframes starScroll{
-      from{transform:translateY(0)}
-      to{transform:translateY(200vh)}
-    }
-
-    /* ---------- MOON (ORBIT MOTION) ---------- */
-    .moon-orbit{
-      position:fixed;inset:-20vh;pointer-events:none;animation:orbit 120s linear infinite;z-index:1;
-    }
-    .moon{
-      position:absolute;top:10vh;left:60vw;
-      width:160px;height:160px;border-radius:50%;
-      background:radial-gradient(circle,var(--moon),#dcd6ff 60%);
-      box-shadow:0 0 110px 45px rgba(205,180,255,.45);
-    }
+    /* MOON */
+    .moon-orbit{position:fixed;inset:-20vh;pointer-events:none;animation:orbit 120s linear infinite;z-index:1}
+    .moon{position:absolute;top:10vh;left:60vw;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,var(--moon),#dcd6ff 60%);box-shadow:0 0 110px 45px rgba(205,180,255,.45)}
     @keyframes orbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
-    /* ---------- SCREENS ---------- */
+    /* SCREENS */
     .screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 22px;transition:opacity 1.2s ease,transform 1.2s ease;z-index:2}
     .hidden{opacity:0;pointer-events:none;transform:scale(1.06)}
 
     h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,3.2rem);margin-bottom:18px;background:linear-gradient(90deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-
-    /* Hero (first screen) text tuning */
     .screen-hero{gap:14px}
     .hero-title{max-width:820px;line-height:1.25;text-wrap:balance}
     .hero-sub{max-width:520px;font-size:0.95rem;opacity:.85}
     p{max-width:560px;line-height:1.9;opacity:.9;font-size:1.05rem}
     .btn{margin-top:42px;padding:14px 40px;border-radius:50px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:white;cursor:pointer}
 
-    /* ---------- ENVELOPE ---------- */
+    /* ENVELOPE */
     .envelope-wrap{width:500px;height:360px;perspective:2000px;margin-top:30px}
-
-    .envelope{
-      position:absolute;inset:0;
-      background:
-        repeating-linear-gradient(45deg,rgba(255,255,255,.05),rgba(255,255,255,.05) 2px,transparent 2px,transparent 6px),
-        radial-gradient(circle at top, rgba(255,255,255,0.18), transparent 60%),
-        linear-gradient(145deg,#1a1d4d,#3a2b6e);
-      border-radius:40px;
-      box-shadow:0 80px 160px rgba(0,0,0,.8), inset 0 0 0 1px rgba(255,255,255,.25);
-    }
-
-    .flap{
-      position:absolute;inset:0;
-      background:
-        repeating-radial-gradient(circle at 20% 30%, rgba(255,180,210,.35) 0 2px, transparent 3px 12px),
-        repeating-radial-gradient(circle at 80% 50%, rgba(255,180,210,.25) 0 2px, transparent 3px 14px),
-        linear-gradient(145deg,#2c2f6b,#1b1f4a);
-      clip-path:polygon(0 0,100% 0,50% 70%);
-      transform-origin:top;
-      transition:transform 1.4s cubic-bezier(.19,1,.22,1);
-    }
-
-    .wax{
-      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-      width:60px;height:60px;border-radius:50%;
-      background:radial-gradient(circle,#ffb4d9,#ff6fae);
-      box-shadow:0 0 30px rgba(255,120,180,.8);
-      font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:white;display:flex;align-items:center;justify-content:center;
-      animation:shimmer 3s ease-in-out infinite;
-    }
+    .envelope{position:absolute;inset:0;background:linear-gradient(145deg,#1a1d4d,#3a2b6e);border-radius:40px;box-shadow:0 80px 160px rgba(0,0,0,.8)}
+    .flap{position:absolute;inset:0;background:linear-gradient(145deg,#2c2f6b,#1b1f4a);clip-path:polygon(0 0,100% 0,50% 70%);transform-origin:top;transition:transform 1.4s cubic-bezier(.19,1,.22,1)}
+    .wax{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,#ffb4d9,#ff6fae);box-shadow:0 0 30px rgba(255,120,180,.8);display:flex;align-items:center;justify-content:center;animation:shimmer 3s ease-in-out infinite}
     @keyframes shimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
-
-    .letter{
-      position:absolute;inset:26px;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(255,200,220,.25), transparent 40%),
-        radial-gradient(circle at 70% 80%, rgba(205,180,255,.25), transparent 45%),
-        linear-gradient(#fffaf3,#fff5e6);
-      color:#222;padding:46px 42px 90px;border-radius:30px;
-      font-family:'Cormorant Garamond',serif;font-size:1.15rem;
-      transform:translateY(120%);transition:transform 1.6s cubic-bezier(.19,1,.22,1);
-      box-shadow:inset 0 0 50px rgba(0,0,0,.1),0 14px 28px rgba(0,0,0,.25);
-      max-height:100%;overflow-y:auto;
-    }
+    .letter{position:absolute;inset:26px;background:linear-gradient(#fffaf3,#fff5e6);color:#222;padding:46px 42px 90px;border-radius:30px;font-family:'Cormorant Garamond',serif;font-size:1.15rem;transform:translateY(120%);transition:transform 1.6s cubic-bezier(.19,1,.22,1);max-height:100%;overflow-y:auto}
     .letter::-webkit-scrollbar{width:0;height:0}
-
-    .heart{position:absolute;font-size:14px;color:#ff7bbf;opacity:.7;animation:floatHeart 6s infinite}
-    @keyframes floatHeart{from{transform:translateY(0);opacity:.7}to{transform:translateY(-40px);opacity:0}}
-
-    .scroll-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:.85rem;color:#777;opacity:.8;animation:hint 2s infinite}
-    @keyframes hint{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-6px)}}
-
     .open .flap{transform:rotateX(180deg)}
     .open .letter{transform:translateY(0)}
 
-    /* ---------- CONSTELLATION ---------- */
+    /* CONSTELLATION */
     .constellation{position:relative;width:360px;height:300px;margin-top:30px}
     .star{position:absolute;width:14px;height:14px;border-radius:50%;background:white;box-shadow:0 0 14px rgba(255,255,255,1);cursor:pointer}
     .star.active{background:var(--accent)}
     .line{position:absolute;height:2px;background:var(--accent);transform-origin:left center;opacity:.9}
 
+    /* FINAL FIREWORKS */
+    #screen4{background:black}
+    #fireworks{position:absolute;inset:0}
+    #finalText{position:relative;z-index:2}
   </style>
 </head>
 <body>
@@ -165,109 +103,87 @@
       <div class="envelope">
         <div class="flap"></div>
         <div class="wax">♥</div>
-        <div class="letter" id="letter">
-          <span id="typeText"></span>
-          <div class="scroll-hint">scroll ↓</div>
-        </div>
+        <div class="letter" id="letter"><span id="typeText"></span></div>
       </div>
     </div>
+    <button class="btn" id="finalBtn" style="display:none" onclick="startFinale()">One last thing ✨</button>
   </section>
 
-  <audio id="music" loop>
-    <source src="https://raw.githubusercontent.com/oper-rr/website/main/song%284%29.mp3
-" type="audio/mpeg">
+  <section class="screen hidden" id="screen4">
+    <canvas id="fireworks"></canvas>
+    <h1 id="finalText">Happy New Year my love ✨</h1>
+  </section>
+
+  <!-- 🎵 BACKGROUND MUSIC -->
+  <audio id="bgMusic" preload="auto" loop>
+    <source src="https://raw.githubusercontent.com/oper-rr/website/main/song%284%29.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    // ✨ WRITE YOUR FULL LETTER HERE ✨
-    const text = `My love,\n\nhi my lover,
-
-i just wanna write some stuff and tell you how much i love you and how i loved being with you in 2025, literally 2025 was sooo goood , we did so much stuff we did a lot of variety we went hiking we explored new places we went to different airbnb enthokkeee aan lee, i genuinely enjoyed 2025 with you so much, and i cant express how much i absolutely adore you and love my baby, ink anne odkatheeee ishta i genuinely cannot keep my eyes and hands and mind off of you, u genuinely cross my mind every single second of the day and without ur presence and messsage i genuinely cannot live or go a day, i genuinely puke shit pee all at same time.
-
-i cant beleive we been dating for the past 2 years and some months, enthaan le, that is soo crazyyyyy, i gneuinely thought nee enne ittech povm enn before even 6 months, man so much stuff happened, we did so much stuff bro i genuinely cannot tell you how much i loved hanging out w you, doing random stuff w you, aah cough cough fighting and breaking up w u also, ellam, damn bro we really went throught it all and i cant beleive we gon hit 3 year mark since knowing each other soon in 6 months isnt that crazy??? ughh i love you so much ente ponn thankakudam.
-
-i love you a lot gouri, i told you right, especially recently i been feeling so closer and i genuinely love it, i told u yesterday how nee open up cheyyane literally made me like you more and made me feel closer and made me feel like i was special to you,
-i hope you know i really know ur trying to change not for us but for urslef and im genuiinely geneuinly so proudf of you for that, i really know nee try cheyyind chele samayth pone aan athokke enik ariya, and i hope you know ill be there for u to help you and to help u figure out stuff, i wanna be there for you and i will be.  i genuiinely wish to live with you this new year and i genuinely genuinely wanna be closer to u and it does stress me that this could be the final year ur gonna be  w me, but i genuinely wanna spend as much as i can and live w u and make u happy and fix all my bad habits and bad issues and treat you just like how u should be treated, i wanna make myself better in the coming year with time, and make you feel like u can like and love me properly and trust me, i will genuinely do everythint it takes to make you feel better and happier, and it is one of my resolution.
-
-i hope and i know and i pray that you acheive everything that u set out on ur vision board, i genuinely know you will, ur my baby, ur my smarted baby and the prettiest and i know ninak ellam kittm, and  i wish that for u you, i only tweak about guy thing but rest all things i wish the best and only the best for you because i genuinely wanna see you become the best of urelf and i hope you know how proud of you i am, i really am for everything, ellathinm proud aan and i genuinely miss you so muchhhhh my muthmani, i cant wait to see you again, i hope this new year we both work on ourselves and not forget to love each other properly also, i hope we both focus on our careers and maek some good progress and make some good dedciationa nd time to better ourselves, ellam namk sett avnam, namk lock in cheyyanam and we will
-
-i just wanna say i really didint think wed make it this far, i thought wed get cut off 3 months after bumble match itsel,f but im really glad ithrem ethiye and i wanna do atleast 10 more years and after that oru 50 year renewal, i hope you know i love you so much and id do anything for you. 
-
-Happy new year my plingu, i love you for everything, and i love you so much.
-
+    // FULL LETTER (SAFE, MULTI-PARAGRAPH)
+    const text = `hi my lover,\n\n
+i just wanna write some stuff and tell you how much i love you and how i loved being with you in 2025, literally 2025 was sooo goood , we did so much stuff we did a lot of variety we went hiking we explored new places we went to different airbnb enthokkeee aan lee, i genuinely enjoyed 2025 with you so much, and i cant express how much i absolutely adore you and love my baby, ink anne odkatheeee ishta i genuinely cannot keep my eyes and hands and mind off of you, u genuinely cross my mind every single second of the day and without ur presence and messsage i genuinely cannot live or go a day, i genuinely puke shit pee all at same time.\n\n
+i cant beleive we been dating for the past 2 years and some months, enthaan le, that is soo crazyyyyy, i gneuinely thought nee enne ittech povm enn before even 6 months, man so much stuff happened, we did so much stuff bro i genuinely cannot tell you how much i loved hanging out w you, doing random stuff w you, aah cough cough fighting and breaking up w u also, ellam, damn bro we really went throught it all and i cant beleive we gon hit 3 year mark since knowing each other soon in 6 months isnt that crazy??? ughh i love you so much ente ponn thankakudam.\n\n
+i love you a lot gouri, i told you right, especially recently i been feeling so closer and i genuinely love it, i told u yesterday how nee open up cheyyane literally made me like you more and made me feel closer and made me feel like i was special to you, i hope you know i really know ur trying to change not for us but for urslef and im genuiinely geneuinly so proudf of you for that, i really know nee try cheyyind chele samayth pone aan athokke enik ariya, and i hope you know ill be there for u to help you and to help u figure out stuff, i wanna be there for you and i will be.\n\n
+i genuiinely wish to live with you this new year and i genuinely genuinely wanna be closer to u and it does stress me that this could be the final year ur gonna be w me, but i genuinely wanna spend as much as i can and live w u and make u happy and fix all my bad habits and bad issues and treat you just like how u should be treated, i wanna make myself better in the coming year with time, and make you feel like u can like and love me properly and trust me, i will genuinely do everythint it takes to make you feel better and happier, and it is one of my resolution.\n\n
+i hope and i know and i pray that you acheive everything that u set out on ur vision board, i genuinely know you will, ur my baby, ur my smarted baby and the prettiest and i know ninak ellam kittm, and i wish that for u you, i only tweak about guy thing but rest all things i wish the best and only the best for you because i genuinely wanna see you become the best of urelf and i hope you know how proud of you i am, i really am for everything, ellathinm proud aan and i genuinely miss you so muchhhhh my muthmani, i cant wait to see you again, i hope this new year we both work on ourselves and not forget to love each other properly also, i hope we both focus on our careers and maek some good progress and make some good dedciationa nd time to better ourselves, ellam namk sett avnam, namk lock in cheyyanam and we will\n\n
+i just wanna say i really didint think wed make it this far, i thought wed get cut off 3 months after bumble match itsel,f but im really glad ithrem ethiye and i wanna do atleast 10 more years and after that oru 50 year renewal, i hope you know i love you so much and id do anything for you.\n\n
+Happy new year my plingu, i love you for everything, and i love you so much.\n\n
 your only ribu the kundan`;
-    let i = 0;
 
+    let i = 0;
     function typeLetter(){
       if(i < text.length){
         const ch = text[i] === '\n' ? '<br>' : text[i];
         document.getElementById('typeText').innerHTML += ch;
         i++;
-        setTimeout(typeLetter, 40);
+        setTimeout(typeLetter, 35);
+      } else {
+        document.getElementById('finalBtn').style.display = 'inline-block';
       }
     }
 
     function nextScreen(n){
-      document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-      document.getElementById('screen' + n).classList.remove('hidden');
+      document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));
+      document.getElementById('screen'+n).classList.remove('hidden');
     }
 
     function openLetter(){
       document.querySelector('.envelope').classList.add('open');
-      document.getElementById('music').play();
+      document.getElementById('bgMusic').volume = 0.6;
+      document.getElementById('bgMusic').play();
       typeLetter();
-      spawnHearts();
-    }
-
-    function spawnHearts(){
-      const l = document.getElementById('letter');
-      setInterval(() => {
-        const h = document.createElement('div');
-        h.className = 'heart';
-        h.textContent = '♥';
-        h.style.left = Math.random() * 80 + 10 + '%';
-        h.style.bottom = '20px';
-        l.appendChild(h);
-        setTimeout(() => h.remove(), 6000);
-      }, 1200);
     }
 
     // CONSTELLATION LOGIC
-    const pts = [
-      {x:180,y:40},{x:120,y:80},{x:80,y:140},{x:120,y:200},
-      {x:180,y:240},{x:240,y:200},{x:280,y:140},{x:240,y:80}
-    ];
-    const ctn = document.getElementById('constellation');
-    let idx = 0;
+    const pts=[{x:180,y:40},{x:120,y:80},{x:80,y:140},{x:120,y:200},{x:180,y:240},{x:240,y:200},{x:280,y:140},{x:240,y:80}];
+    const ctn=document.getElementById('constellation');let idx=0;
+    pts.forEach((p,i)=>{const s=document.createElement('div');s.className='star';s.style.left=p.x+'px';s.style.top=p.y+'px';s.onclick=()=>{if(i===idx){s.classList.add('active');if(idx>0)drawLine(pts[idx-1],pts[idx]);idx++;if(idx===pts.length)setTimeout(()=>nextScreen(3),800)}};ctn.appendChild(s)});
+    function drawLine(a,b){const l=document.createElement('div');const dx=b.x-a.x,dy=b.y-a.y;const len=Math.hypot(dx,dy);const ang=Math.atan2(dy,dx)*180/Math.PI;l.className='line';l.style.width=len+'px';l.style.left=a.x+'px';l.style.top=a.y+'px';l.style.transform=`rotate(${ang}deg)`;ctn.appendChild(l)}
 
-    pts.forEach((p,i) => {
-      const s = document.createElement('div');
-      s.className = 'star';
-      s.style.left = p.x + 'px';
-      s.style.top = p.y + 'px';
-      s.onclick = () => {
-        if(i === idx){
-          s.classList.add('active');
-          if(idx > 0) drawLine(pts[idx-1], pts[idx]);
-          idx++;
-          if(idx === pts.length) setTimeout(() => nextScreen(3), 800);
-        }
-      };
-      ctn.appendChild(s);
-    });
+    // FIREWORKS
+    function startFinale(){
+      document.getElementById('bgMusic').pause();
+      nextScreen(4);
+      const canvas=document.getElementById('fireworks');
+      const ctx=canvas.getContext('2d');
+      canvas.width=innerWidth;canvas.height=innerHeight;
+      const rockets=[];const sparks=[];
 
-    function drawLine(a,b){
-      const l = document.createElement('div');
-      const dx = b.x - a.x;
-      const dy = b.y - a.y;
-      const len = Math.hypot(dx, dy);
-      const ang = Math.atan2(dy, dx) * 180 / Math.PI;
-      l.className = 'line';
-      l.style.width = len + 'px';
-      l.style.left = a.x + 'px';
-      l.style.top = a.y + 'px';
-      l.style.transform = `rotate(${ang}deg)`;
-      ctn.appendChild(l);
+      function launch(x,color){rockets.push({x:x,y:canvas.height,vy:-9,color:color,done:false})}
+      function boom(r){for(let i=0;i<140;i++){const a=Math.random()*Math.PI*2;const s=Math.random()*6+2;sparks.push({x:r.x,y:r.y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:100,color:r.color})}}
+
+      launch(canvas.width/2,'white');
+      setInterval(()=>launch(Math.random()*canvas.width,`hsl(${Math.random()*360},100%,70%)`),600);
+
+      function animate(){
+        ctx.fillStyle='rgba(0,0,0,0.25)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        rockets.forEach(r=>{if(!r.done){r.y+=r.vy;ctx.fillStyle=r.color;ctx.fillRect(r.x,r.y,2,2);if(r.y<canvas.height/2){r.done=true;boom(r)}}});
+        for(let i=sparks.length-1;i>=0;i--){const p=sparks[i];p.x+=p.vx;p.y+=p.vy;p.vy+=0.05;p.life--;ctx.fillStyle=p.color;ctx.fillRect(p.x,p.y,2,2);if(p.life<=0)sparks.splice(i,1)}
+        requestAnimationFrame(animate)
+      }
+      animate();
     }
   </script>
 </body>
